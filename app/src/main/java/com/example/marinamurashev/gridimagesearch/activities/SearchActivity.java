@@ -10,26 +10,33 @@ import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.marinamurashev.gridimagesearch.R;
+import com.example.marinamurashev.gridimagesearch.models.ImageResult;
 import com.example.marinamurashev.gridimagesearch.services.GoogleImageSearchService;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class SearchActivity extends ActionBarActivity {
     private EditText etQuery;
     private GridView gvResults;
+    
+    private ArrayList<ImageResult> imageResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         displayActionBarIcon();
-        
         setupViews();
+        
+        imageResults = new ArrayList<>();
     }
 
     private void displayActionBarIcon() {
@@ -76,7 +83,14 @@ public class SearchActivity extends ActionBarActivity {
             
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
+                JSONArray imageResultsJSON = null;
+                try {
+                    imageResultsJSON = response.getJSONObject("dataResponse").getJSONArray("data");
+                    imageResults.clear();
+                    imageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
