@@ -85,7 +85,7 @@ public class SearchActivity extends ActionBarActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray imageResultsJSON = null;
                 try {
-                    imageResultsJSON = response.getJSONObject("dataResponse").getJSONArray("data");
+                    imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
                     imageResults.clear();
                     imageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
                 } catch (JSONException e) {
