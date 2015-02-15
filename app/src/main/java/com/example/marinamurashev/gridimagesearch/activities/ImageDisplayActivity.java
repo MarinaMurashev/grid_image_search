@@ -22,7 +22,7 @@ public class ImageDisplayActivity extends Activity{
         ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra(SearchActivity.IMAGE_RESULT_EXTRA);
         ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
 
-        Picasso.with(this).load(imageResult.getFullUrl()).into(ivImageResult);
+        Picasso.with(this).load(imageResult.getFullUrl()).resize(800, 500).centerCrop().into(ivImageResult);
     }
 
 
