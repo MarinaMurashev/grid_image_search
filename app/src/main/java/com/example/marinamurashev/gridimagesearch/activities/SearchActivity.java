@@ -14,12 +14,14 @@ import android.widget.Toast;
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.marinamurashev.gridimagesearch.models.ImageResult;
+import com.example.marinamurashev.gridimagesearch.models.Setting;
 import com.example.marinamurashev.gridimagesearch.services.GoogleImageSearchService;
 
 import java.util.ArrayList;
 
 
 public class SearchActivity extends ActionBarActivity {
+    private Setting setting = new Setting();
     private EditText etQuery;
     private GridView gvResults;
     
@@ -27,6 +29,7 @@ public class SearchActivity extends ActionBarActivity {
     private ImageResultsAdapter aImageResults;
     
     public static final String IMAGE_RESULT_EXTRA = "image result";
+    public static final String SETTING_EXTRA = "setting";
     private final int SETTINGS_REQUEST_CODE = 20;
 
     @Override
@@ -82,6 +85,7 @@ public class SearchActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(this, SettingsActivity.class);
+            i.putExtra(SETTING_EXTRA, setting);
             startActivityForResult(i, SETTINGS_REQUEST_CODE);
             return true;
         }
@@ -99,11 +103,8 @@ public class SearchActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == SETTINGS_REQUEST_CODE) {
-            // Extract name value from result extras
-//            String name = data.getExtras().getString("name");
-//            int code = data.getExtras().getInt("code", 0);
-            // Toast the name to display temporarily on screen
-            Toast.makeText(this, "result was receieved", Toast.LENGTH_SHORT).show();
+            setting = (Setting) data.getExtras().getSerializable(SettingsActivity.SETTING_EXTRA);
+            Toast.makeText(this, setting.getColor(), Toast.LENGTH_SHORT).show();
         }
     }
 }

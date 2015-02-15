@@ -3,52 +3,44 @@ package com.example.marinamurashev.gridimagesearch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.marinamurashev.gridimagesearch.R;
+import com.example.marinamurashev.gridimagesearch.models.Setting;
 
 public class SettingsActivity extends ActionBarActivity {
+    private Setting setting;
+    
+    public static final String SETTING_EXTRA = "setting";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        
+        setting = (Setting) getIntent().getSerializableExtra(SearchActivity.SETTING_EXTRA);
     }
 
     public void onSubmit(View v) {
-//        EditText etName = (EditText) findViewById(R.id.name);
-        // Prepare data intent
-        Intent data = new Intent();
-        // Pass relevant data back as a result
-//        data.putExtra("name", etName.getText().toString());
-//        data.putExtra("code", 200); // ints work too
-        // Activity finished ok, return the data
-        setResult(RESULT_OK, data); // set result code and bundle data for response
-        finish(); // closes the activity, pass data to parent
+        setSettingFromView();
+        
+        Intent i = new Intent();
+        i.putExtra(SETTING_EXTRA, setting);
+        
+        setResult(RESULT_OK, i);
+        finish(); 
+    }
+    
+    private void setSettingFromView(){
+        Spinner sImageSize = (Spinner) findViewById(R.id.sImageSize);
+        setting.setSize(sImageSize.getSelectedItem().toString());
+        Spinner sImageColor = (Spinner) findViewById(R.id.sImageColor);
+        setting.setColor(sImageColor.getSelectedItem().toString());
+        Spinner sImageType = (Spinner) findViewById(R.id.sImageType);
+        setting.setType(sImageType.getSelectedItem().toString());
+        EditText etImageSite = (EditText) findViewById(R.id.etImageSite);
+        setting.setSite(etImageSite.getText().toString());
     }
 }
