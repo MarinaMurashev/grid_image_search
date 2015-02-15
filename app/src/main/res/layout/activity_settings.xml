@@ -11,7 +11,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +23,10 @@
         android:layout_below="@+id/tvSettingsTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="15sp"/>
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="15dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -32,7 +37,9 @@
         android:layout_toRightOf="@+id/tvImageSizeTitle"
         android:layout_below="@+id/tvSettingsTitle"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +49,10 @@
         android:layout_below="@+id/tvImageSizeTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="15sp"/>
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="15dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -53,7 +63,9 @@
         android:layout_toRightOf="@+id/tvColorFilterTitle"
         android:layout_below="@+id/sImageSize"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +75,10 @@
         android:layout_below="@+id/tvColorFilterTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="15sp"/>
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="15dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -74,30 +89,35 @@
         android:layout_toRightOf="@+id/tvImageTypeTitle"
         android:layout_below="@+id/sImageColor"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:text="@string/site_filter_title"
         android:id="@+id/tvSiteFilterTitle"
         android:layout_below="@+id/tvImageTypeTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#000000"
+        android:paddingLeft="10dp"
         />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etImageSite"
-        android:layout_alignBottom="@+id/tvSiteFilterTitle"
         android:layout_toRightOf="@+id/tvSiteFilterTitle"
         android:layout_below="@+id/sImageType"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:paddingTop="10dp"
+        android:hint="espn.com"/>
 
     <Button
         android:layout_width="wrap_content"

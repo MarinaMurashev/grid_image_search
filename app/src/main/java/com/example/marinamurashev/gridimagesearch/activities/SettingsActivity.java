@@ -3,10 +3,12 @@ package com.example.marinamurashev.gridimagesearch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.models.Setting;
@@ -51,6 +53,9 @@ public class SettingsActivity extends ActionBarActivity {
         sImageColor = (Spinner) findViewById(R.id.sImageColor);
         sImageType = (Spinner) findViewById(R.id.sImageType);
         etImageSite = (EditText) findViewById(R.id.etImageSite);
+
+        TextView tvSettingsTitle = (TextView) findViewById(R.id.tvSettingsTitle);
+        tvSettingsTitle.setText(Html.fromHtml("<b>" + getString(R.string.settings_title) + "</b>"));
     }
     
     private void setSettingFromView(){
