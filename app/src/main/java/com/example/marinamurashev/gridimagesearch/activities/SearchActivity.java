@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.marinamurashev.gridimagesearch.R;
+import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.marinamurashev.gridimagesearch.models.ImageResult;
 import com.example.marinamurashev.gridimagesearch.services.GoogleImageSearchService;
 import com.loopj.android.http.AsyncHttpClient;
@@ -28,6 +29,7 @@ public class SearchActivity extends ActionBarActivity {
     private GridView gvResults;
     
     private ArrayList<ImageResult> imageResults;
+    private ImageResultsAdapter aImageResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class SearchActivity extends ActionBarActivity {
         setupViews();
         
         imageResults = new ArrayList<>();
+        aImageResults = new ImageResultsAdapter(this, imageResults);
+        gvResults.setAdapter(aImageResults);
     }
 
     private void displayActionBarIcon() {
@@ -87,7 +91,7 @@ public class SearchActivity extends ActionBarActivity {
                 try {
                     imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
                     imageResults.clear();
-                    imageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
+                    aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
