@@ -15,5 +15,6 @@
     <string name="image_type_title">Image type</string>
     <string name="site_filter_title">Site filter</string>
     <string name="save">Save</string>
+    <string name="no_filter">No filter</string>
 
 </resources>

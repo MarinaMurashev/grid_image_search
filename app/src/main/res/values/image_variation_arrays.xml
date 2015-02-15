@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="image_size_array">
+        <item>@string/no_filter</item>
         <item>small</item>
         <item>medium</item>
         <item>large</item>
@@ -8,6 +9,7 @@
     </string-array>
 
     <string-array name="image_color_array">
+        <item>@string/no_filter</item>
         <item>black</item>
         <item>blue</item>
         <item>brown</item>
@@ -16,6 +18,7 @@
     </string-array>
     
     <string-array name="image_type_array">
+        <item>@string/no_filter</item>
         <item>faces</item>
         <item>photo</item>
         <item>clipart</item>

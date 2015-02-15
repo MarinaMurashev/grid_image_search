@@ -12,6 +12,10 @@ import com.example.marinamurashev.gridimagesearch.models.Setting;
 
 public class SettingsActivity extends ActionBarActivity {
     private Setting setting;
+    private Spinner sImageSize;
+    private Spinner sImageColor;
+    private Spinner sImageType;
+    private EditText etImageSite;
     
     public static final String SETTING_EXTRA = "setting";
 
@@ -19,7 +23,7 @@ public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        
+        setupViews();
         setting = (Setting) getIntent().getSerializableExtra(SearchActivity.SETTING_EXTRA);
     }
 
@@ -33,14 +37,26 @@ public class SettingsActivity extends ActionBarActivity {
         finish(); 
     }
     
+    private void setupViews(){
+        sImageSize = (Spinner) findViewById(R.id.sImageSize);
+        sImageColor = (Spinner) findViewById(R.id.sImageColor);
+        sImageType = (Spinner) findViewById(R.id.sImageType);
+        etImageSite = (EditText) findViewById(R.id.etImageSite);
+    }
+    
     private void setSettingFromView(){
-        Spinner sImageSize = (Spinner) findViewById(R.id.sImageSize);
-        setting.setSize(sImageSize.getSelectedItem().toString());
-        Spinner sImageColor = (Spinner) findViewById(R.id.sImageColor);
-        setting.setColor(sImageColor.getSelectedItem().toString());
-        Spinner sImageType = (Spinner) findViewById(R.id.sImageType);
-        setting.setType(sImageType.getSelectedItem().toString());
-        EditText etImageSite = (EditText) findViewById(R.id.etImageSite);
-        setting.setSite(etImageSite.getText().toString());
+        String no_filter = getResources().getString(R.string.no_filter);
+        
+        String size = sImageSize.getSelectedItem().toString();
+        if(size != no_filter) setting.setSize(size);
+
+        String color = sImageColor.getSelectedItem().toString();
+        if(color != no_filter) setting.setColor(color);
+        
+        String type = sImageType.getSelectedItem().toString();
+        if(type != no_filter) setting.setType(type);
+        
+        String site = etImageSite.getText().toString();
+        if(site != null) setting.setSite(site);
     }
 }
