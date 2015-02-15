@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.marinamurashev.gridimagesearch.models.ImageResult;
 import com.example.marinamurashev.gridimagesearch.models.Setting;
 import com.example.marinamurashev.gridimagesearch.services.GoogleImageSearchService;
+import com.example.marinamurashev.gridimagesearch.utilities.EndlessScrollListener;
 
 import java.util.ArrayList;
 
@@ -53,6 +55,20 @@ public class SearchActivity extends ActionBarActivity {
                 startActivity(i);
             }
         });
+        
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                customLoadMoreDataFromApi(page);
+                // or customLoadMoreDataFromApi(totalItemsCount); 
+            }
+        });
+    }
+
+    private void customLoadMoreDataFromApi(int page) {
+        Toast.makeText(this, String.valueOf(page), Toast.LENGTH_LONG).show();
     }
 
     private void displayActionBarIcon() {

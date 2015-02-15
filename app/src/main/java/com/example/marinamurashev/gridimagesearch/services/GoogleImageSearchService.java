@@ -22,21 +22,37 @@ public class GoogleImageSearchService {
     private static final String SIZE_PARAM_NAME = "imgsz";
     private static final String TYPE_PARAM_NAME = "imgtype";
     private static final String SITE_PARAM_NAME = "as_sitesearch";
+    private static final String PAGE_PARAM_NAME = "start";
     private static final String VERSION_PARAM = "v=1.0";
     private static final String RETURN_NUMBER_PARAM = "rsz=8";
 
     private String fullUrl;
     private ImageResultsAdapter imageResultsAdapter;
     private Setting setting;
+    private int offset = 0;
     
     public GoogleImageSearchService(ImageResultsAdapter adapter, Setting setting, String queryParamValue){
         this.imageResultsAdapter = adapter;
         this.setting = setting;
-        this.fullUrl = URL
-                + VERSION_PARAM + "&" 
-                + RETURN_NUMBER_PARAM + "&" 
-                + QUERY_PARAM_NAME + "=" + queryParamValue;
+        this.fullUrl = buildFullUrl(queryParamValue);
         applySettingsToUrl();
+    }
+
+    public GoogleImageSearchService(ImageResultsAdapter adapter, Setting setting, String queryParamValue, int offset){
+        this.imageResultsAdapter = adapter;
+        this.setting = setting;
+        this.offset = offset;
+        this.fullUrl = buildFullUrl(queryParamValue);
+        applySettingsToUrl();
+        
+    }
+    
+    private String buildFullUrl(String queryString){
+        return URL
+            + VERSION_PARAM + "&"
+            + RETURN_NUMBER_PARAM + "&"
+            + QUERY_PARAM_NAME + "=" + queryString + "&"
+            + PAGE_PARAM_NAME + "=" + String.valueOf(offset);
     }
 
     private void applySettingsToUrl() {
@@ -63,7 +79,7 @@ public class GoogleImageSearchService {
                 JSONArray imageResultsJSON = null;
                 try {
                     imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
-                    imageResultsAdapter.clear();
+                    if(offset == 0) imageResultsAdapter.clear();
                     imageResultsAdapter.addAll(ImageResult.fromJSONArray(imageResultsJSON));
                 } catch (JSONException e) {
                     e.printStackTrace();
