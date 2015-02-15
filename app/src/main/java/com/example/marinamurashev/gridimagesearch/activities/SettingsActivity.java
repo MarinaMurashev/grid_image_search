@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.models.Setting;
@@ -25,6 +26,14 @@ public class SettingsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_settings);
         setupViews();
         setting = (Setting) getIntent().getSerializableExtra(SearchActivity.SETTING_EXTRA);
+        updateViewBasedOnSetting();
+    }
+
+    private void updateViewBasedOnSetting() {
+        setSpinnerToValue(sImageSize, setting.getSize());
+        setSpinnerToValue(sImageColor, setting.getColor());
+        setSpinnerToValue(sImageType, setting.getType());
+        etImageSite.setText(setting.getSite());
     }
 
     public void onSubmit(View v) {
@@ -58,5 +67,19 @@ public class SettingsActivity extends ActionBarActivity {
         
         String site = etImageSite.getText().toString();
         if(site != null) setting.setSite(site);
+    }
+
+    public void setSpinnerToValue(Spinner spinner, String value) {
+        if(value != null) {
+            int index = 0;
+            SpinnerAdapter adapter = spinner.getAdapter();
+            for (int i = 0; i < adapter.getCount(); i++) {
+                if (adapter.getItem(i).equals(value)) {
+                    index = i;
+                    break; // terminate loop
+                }
+            }
+            spinner.setSelection(index);
+        }
     }
 }
