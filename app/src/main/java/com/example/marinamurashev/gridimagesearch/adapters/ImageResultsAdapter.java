@@ -1,6 +1,7 @@
 package com.example.marinamurashev.gridimagesearch.adapters;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class ImageResultsAdapter extends ArrayAdapter<ImageResult> {
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
         
         ivImage.setImageResource(0);
-        tvTitle.setText(imageResult.getTitle());
+        tvTitle.setText(Html.fromHtml(imageResult.getTitle()));
         Picasso.with(getContext()).load(imageResult.getThumbUrl()).into(ivImage);
         
         return convertView;
