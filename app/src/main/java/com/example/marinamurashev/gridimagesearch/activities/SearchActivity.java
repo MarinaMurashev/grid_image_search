@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
@@ -95,16 +94,14 @@ public class SearchActivity extends ActionBarActivity {
 
     public void onImageSearch(View view) {
         String query = etQuery.getText().toString();
-        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, query);
+        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, setting, query);
         service.getImages();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == SETTINGS_REQUEST_CODE) {
             setting = (Setting) data.getExtras().getSerializable(SettingsActivity.SETTING_EXTRA);
-            Toast.makeText(this, setting.getColor(), Toast.LENGTH_SHORT).show();
         }
     }
 }

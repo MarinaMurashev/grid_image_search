@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.marinamurashev.gridimagesearch.models.ImageResult;
+import com.example.marinamurashev.gridimagesearch.models.Setting;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -17,20 +18,42 @@ public class GoogleImageSearchService {
     
     private static final String URL = "https://ajax.googleapis.com/ajax/services/search/images?";
     private static final String QUERY_PARAM_NAME = "q";
+    private static final String COLOR_PARAM_NAME = "imgcolor";
+    private static final String SIZE_PARAM_NAME = "imgsz";
+    private static final String TYPE_PARAM_NAME = "imgtype";
+    private static final String SITE_PARAM_NAME = "as_sitesearch";
     private static final String VERSION_PARAM = "v=1.0";
     private static final String RETURN_NUMBER_PARAM = "rsz=8";
 
     private String fullUrl;
     private ImageResultsAdapter imageResultsAdapter;
+    private Setting setting;
     
-    public GoogleImageSearchService(ImageResultsAdapter adapter, String queryParamValue){
+    public GoogleImageSearchService(ImageResultsAdapter adapter, Setting setting, String queryParamValue){
         this.imageResultsAdapter = adapter;
+        this.setting = setting;
         this.fullUrl = URL
                 + VERSION_PARAM + "&" 
                 + RETURN_NUMBER_PARAM + "&" 
                 + QUERY_PARAM_NAME + "=" + queryParamValue;
+        applySettingsToUrl();
     }
-    
+
+    private void applySettingsToUrl() {
+        if(setting.getColor() != null){
+            fullUrl += "&" + COLOR_PARAM_NAME + "=" + setting.getColor();
+        }
+        if(setting.getSize() != null){
+            fullUrl += "&" + SIZE_PARAM_NAME + "=" + setting.getSize();
+        }
+        if(setting.getType() != null){
+            fullUrl += "&" + TYPE_PARAM_NAME + "=" + setting.getType();
+        }
+        if(setting.getSite() != null){
+            fullUrl += "&" + SITE_PARAM_NAME + "=" + setting.getSite();
+        }
+    }
+
     public void getImages(){
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         asyncHttpClient.get(fullUrl, new JsonHttpResponseHandler(){
