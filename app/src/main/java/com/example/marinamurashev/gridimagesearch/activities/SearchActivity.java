@@ -69,6 +69,10 @@ public class SearchActivity extends ActionBarActivity {
 
     private void customLoadMoreDataFromApi(int page) {
         Toast.makeText(this, String.valueOf(page), Toast.LENGTH_LONG).show();
+
+        String query = etQuery.getText().toString();
+        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, setting, query, page);
+        service.getImages();
     }
 
     private void displayActionBarIcon() {
