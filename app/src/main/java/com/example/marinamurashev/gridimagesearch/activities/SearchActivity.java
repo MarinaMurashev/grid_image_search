@@ -33,7 +33,7 @@ public class SearchActivity extends ActionBarActivity {
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
     
-    public static final String IMAGE_FULL_URL_EXTRA = "url";
+    public static final String IMAGE_RESULT_EXTRA = "image result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class SearchActivity extends ActionBarActivity {
                 Intent i = new Intent(SearchActivity.this, ImageDisplayActivity.class);
                 
                 ImageResult result = imageResults.get(position);
-                i.putExtra(IMAGE_FULL_URL_EXTRA, result.getFullUrl());
+                i.putExtra(IMAGE_RESULT_EXTRA, result);
                 
                 startActivity(i);
             }

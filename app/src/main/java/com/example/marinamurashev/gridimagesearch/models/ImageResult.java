@@ -4,9 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ImageResult {
+public class ImageResult implements Serializable {
+    private static final long serialVersionUID = 42L;
     
     private String fullUrl;
     private String thumbUrl;

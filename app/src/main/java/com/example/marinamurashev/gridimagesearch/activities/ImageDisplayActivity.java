@@ -1,25 +1,28 @@
 package com.example.marinamurashev.gridimagesearch.activities;
 
-import android.support.v7.app.ActionBarActivity;
+
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.marinamurashev.gridimagesearch.R;
+import com.example.marinamurashev.gridimagesearch.models.ImageResult;
 import com.squareup.picasso.Picasso;
 
-public class ImageDisplayActivity extends ActionBarActivity {
+public class ImageDisplayActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_display);
         
-        String url = getIntent().getStringExtra(SearchActivity.IMAGE_FULL_URL_EXTRA);
+        ImageResult imageResult = (ImageResult) getIntent().getSerializableExtra(SearchActivity.IMAGE_RESULT_EXTRA);
         ImageView ivImageResult = (ImageView) findViewById(R.id.ivImageResult);
 
-        Picasso.with(this).load(url).into(ivImageResult);
+        Picasso.with(this).load(imageResult.getFullUrl()).into(ivImageResult);
     }
 
 
