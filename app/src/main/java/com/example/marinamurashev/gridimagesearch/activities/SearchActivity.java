@@ -1,11 +1,13 @@
 package com.example.marinamurashev.gridimagesearch.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
@@ -30,6 +32,8 @@ public class SearchActivity extends ActionBarActivity {
     
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter aImageResults;
+    
+    public static final String IMAGE_FULL_URL_EXTRA = "url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,18 @@ public class SearchActivity extends ActionBarActivity {
         imageResults = new ArrayList<>();
         aImageResults = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(aImageResults);
+        
+        gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(SearchActivity.this, ImageDisplayActivity.class);
+                
+                ImageResult result = imageResults.get(position);
+                i.putExtra(IMAGE_FULL_URL_EXTRA, result.getFullUrl());
+                
+                startActivity(i);
+            }
+        });
     }
 
     private void displayActionBarIcon() {
