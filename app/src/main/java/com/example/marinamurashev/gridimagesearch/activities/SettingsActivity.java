@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -50,12 +51,25 @@ public class SettingsActivity extends ActionBarActivity {
     
     private void setupViews(){
         sImageSize = (Spinner) findViewById(R.id.sImageSize);
+        setArrayAdapterFor(sImageSize, R.array.image_size_array);
+        
         sImageColor = (Spinner) findViewById(R.id.sImageColor);
+        setArrayAdapterFor(sImageColor, R.array.image_color_array);
+        
         sImageType = (Spinner) findViewById(R.id.sImageType);
+        setArrayAdapterFor(sImageType, R.array.image_type_array);
+        
         etImageSite = (EditText) findViewById(R.id.etImageSite);
 
         TextView tvSettingsTitle = (TextView) findViewById(R.id.tvSettingsTitle);
         tvSettingsTitle.setText(Html.fromHtml("<b>" + getString(R.string.settings_title) + "</b>"));
+    }
+    
+    private void setArrayAdapterFor(Spinner spinner, int arrayResource){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                arrayResource, R.layout.spinner_layout);
+        adapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner.setAdapter(adapter);
     }
     
     private void setSettingFromView(){

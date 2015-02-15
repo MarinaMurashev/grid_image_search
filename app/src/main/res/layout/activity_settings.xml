@@ -116,8 +116,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="10dp"
-        android:paddingTop="10dp"
-        android:hint="espn.com"/>
+        android:paddingTop="10dp"/>
 
     <Button
         android:layout_width="wrap_content"
