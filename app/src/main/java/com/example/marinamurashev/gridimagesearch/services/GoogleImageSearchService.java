@@ -36,16 +36,16 @@ public class GoogleImageSearchService {
         this.imageResultsAdapter = adapter;
         this.setting = setting;
         this.fullUrl = buildFullUrl(queryParamValue);
+        this.offset = 0;
         applySettingsToUrl();
     }
 
     public GoogleImageSearchService(ImageResultsAdapter adapter, Setting setting, String queryParamValue, int offset){
         this.imageResultsAdapter = adapter;
         this.setting = setting;
-        this.offset = resultSize * (offset - 1) + 1;
+        this.offset = offset;
         this.fullUrl = buildFullUrl(queryParamValue);
         applySettingsToUrl();
-        
     }
     
     private String buildFullUrl(String queryString){

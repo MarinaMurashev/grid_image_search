@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
@@ -43,7 +42,7 @@ public class SearchActivity extends ActionBarActivity {
         imageResults = new ArrayList<>();
         aImageResults = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(aImageResults);
-        
+
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,19 +58,14 @@ public class SearchActivity extends ActionBarActivity {
         gvResults.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to your AdapterView
-                customLoadMoreDataFromApi(page);
-                // or customLoadMoreDataFromApi(totalItemsCount); 
+                customLoadMoreDataFromApi(totalItemsCount);
             }
         });
     }
 
-    private void customLoadMoreDataFromApi(int page) {
-        Toast.makeText(this, String.valueOf(page), Toast.LENGTH_LONG).show();
-
+    private void customLoadMoreDataFromApi(int totalItemsCount) {
         String query = etQuery.getText().toString();
-        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, setting, query, page);
+        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, setting, query, totalItemsCount);
         service.getImages();
     }
 
