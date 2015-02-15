@@ -21,11 +21,18 @@
         <activity
             android:name=".activities.ImageDisplayActivity"
             android:label="@string/title_activity_image_display"
-            android:parentActivityName=".activities.SearchActivity">
-            
+            android:parentActivityName=".activities.SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.SearchActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".activities.SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marinamurashev.gridimagesearch.activities.SearchActivity" />
         </activity>
     </application>
 
