@@ -3,7 +3,6 @@ package com.example.marinamurashev.gridimagesearch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +14,6 @@ import com.example.marinamurashev.gridimagesearch.R;
 import com.example.marinamurashev.gridimagesearch.adapters.ImageResultsAdapter;
 import com.example.marinamurashev.gridimagesearch.models.ImageResult;
 import com.example.marinamurashev.gridimagesearch.services.GoogleImageSearchService;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -95,28 +87,7 @@ public class SearchActivity extends ActionBarActivity {
 
     public void onImageSearch(View view) {
         String query = etQuery.getText().toString();
-
-        // String url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=hello";
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        GoogleImageSearchService googleImageSearchService = new GoogleImageSearchService(query);
-        asyncHttpClient.get(googleImageSearchService.getFullUrl(), new JsonHttpResponseHandler(){
-            
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray imageResultsJSON = null;
-                try {
-                    imageResultsJSON = response.getJSONObject("responseData").getJSONArray("results");
-                    imageResults.clear();
-                    aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJSON));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("DEBUG", "Failed network response");
-            }
-        });
+        GoogleImageSearchService service = new GoogleImageSearchService(aImageResults, query);
+        service.getImages();
     }
 }
